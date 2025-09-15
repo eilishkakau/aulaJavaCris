@@ -1,38 +1,32 @@
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // 🔹 Usando HashMap (sem ordem garantida)
-        Map<String, String> agenda = new HashMap<>();
+        Scanner scanner = new Scanner(System.in);
 
-        // ➕ Adicionando contatos
-        agenda.put("Ana", "99999-1111");
-        agenda.put("Bruno", "98888-2222");
-        agenda.put("Carlos", "97777-3333");
+        // 📝 Entrada do usuário
+        System.out.println("Digite uma frase:");
+        String frase = scanner.nextLine();
 
-        // 🔍 Verificando se um nome existe
-        String nomeConsulta = "Bruno";
-        if (agenda.containsKey(nomeConsulta)) {
-            System.out.println(nomeConsulta + " está na agenda com o número: " + agenda.get(nomeConsulta));
-        } else {
-            System.out.println(nomeConsulta + " não está na agenda.");
+        // 🧹 Limpeza e separação das palavras
+        String[] palavras = frase.toLowerCase().split("\\s+");
+
+        // 📊 Contagem com HashMap
+        Map<String, Integer> contagem = new HashMap<>();
+
+        for (String palavra : palavras) {
+            // Remove pontuação, se houver
+            palavra = palavra.replaceAll("[^a-záéíóúãõâêîôûç]", "");
+
+            if (!palavra.isEmpty()) {
+                contagem.put(palavra, contagem.getOrDefault(palavra, 0) + 1);
+            }
         }
 
-        // 📋 Listando todos os contatos (sem ordem)
-        System.out.println("\nContatos na agenda (HashMap):");
-        for (Map.Entry<String, String> entry : agenda.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
-        }
-
-        // 🔄 Convertendo para TreeMap para ordenar por nome
-        Map<String, String> agendaOrdenada = new TreeMap<>(agenda);
-
-        // 📋 Listando contatos em ordem alfabética
-        System.out.println("\nContatos na agenda (TreeMap - ordenado):");
-        for (Map.Entry<String, String> entry : agendaOrdenada.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
-        }
+        // 📋 Exibindo o resultado
+        System.out.println("\nContagem de palavras:");
+        System.out.println(contagem);
     }
 }
