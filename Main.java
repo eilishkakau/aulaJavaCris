@@ -1,23 +1,38 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Main {
     public static void main(String[] args) {
-        Set<Produto> produtos = new HashSet<>();
+        // 🔹 Usando HashMap (sem ordem garantida)
+        Map<String, String> agenda = new HashMap<>();
 
-        Produto p1 = new Produto("Caneta", 2.50);
-        Produto p2 = new Produto("Caneta", 2.50); // mesmo nome e preço
-        Produto p3 = new Produto("Lápis", 1.00);
+        // ➕ Adicionando contatos
+        agenda.put("Ana", "99999-1111");
+        agenda.put("Bruno", "98888-2222");
+        agenda.put("Carlos", "97777-3333");
 
-        produtos.add(p1);
-        produtos.add(p2); // tentativa de duplicata
-        produtos.add(p3);
-
-        System.out.println("Produtos no conjunto:");
-        for (Produto p : produtos) {
-            System.out.println(p);
+        // 🔍 Verificando se um nome existe
+        String nomeConsulta = "Bruno";
+        if (agenda.containsKey(nomeConsulta)) {
+            System.out.println(nomeConsulta + " está na agenda com o número: " + agenda.get(nomeConsulta));
+        } else {
+            System.out.println(nomeConsulta + " não está na agenda.");
         }
 
-        System.out.println("\nTotal de produtos no conjunto: " + produtos.size());
+        // 📋 Listando todos os contatos (sem ordem)
+        System.out.println("\nContatos na agenda (HashMap):");
+        for (Map.Entry<String, String> entry : agenda.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
+
+        // 🔄 Convertendo para TreeMap para ordenar por nome
+        Map<String, String> agendaOrdenada = new TreeMap<>(agenda);
+
+        // 📋 Listando contatos em ordem alfabética
+        System.out.println("\nContatos na agenda (TreeMap - ordenado):");
+        for (Map.Entry<String, String> entry : agendaOrdenada.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
     }
 }
