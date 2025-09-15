@@ -1,32 +1,32 @@
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Map<Jogador, Integer> partidas = new HashMap<>();
 
-        // 📝 Entrada do usuário
-        System.out.println("Digite uma frase:");
-        String frase = scanner.nextLine();
+        // Simulando jogadores aparecendo em partidas
+        Jogador j1 = new Jogador("Alice", 10);
+        Jogador j2 = new Jogador("Bob", 15);
+        Jogador j3 = new Jogador("Alice", 20); // mesmo nome, pontuação diferente
+        Jogador j4 = new Jogador("Carlos", 5);
+        Jogador j5 = new Jogador("Bob", 30);   // mesmo nome, pontuação diferente
 
-        // 🧹 Limpeza e separação das palavras
-        String[] palavras = frase.toLowerCase().split("\\s+");
+        // Atualizando contagem de partidas
+        atualizarPartidas(partidas, j1);
+        atualizarPartidas(partidas, j2);
+        atualizarPartidas(partidas, j3);
+        atualizarPartidas(partidas, j4);
+        atualizarPartidas(partidas, j5);
 
-        // 📊 Contagem com HashMap
-        Map<String, Integer> contagem = new HashMap<>();
-
-        for (String palavra : palavras) {
-            // Remove pontuação, se houver
-            palavra = palavra.replaceAll("[^a-záéíóúãõâêîôûç]", "");
-
-            if (!palavra.isEmpty()) {
-                contagem.put(palavra, contagem.getOrDefault(palavra, 0) + 1);
-            }
+        // Exibindo ranking
+        System.out.println("Ranking de Participações:");
+        for (Map.Entry<Jogador, Integer> entry : partidas.entrySet()) {
+            System.out.println(entry.getKey().getNome() + " participou de " + entry.getValue() + " partidas.");
         }
+    }
 
-        // 📋 Exibindo o resultado
-        System.out.println("\nContagem de palavras:");
-        System.out.println(contagem);
+    public static void atualizarPartidas(Map<Jogador, Integer> mapa, Jogador jogador) {
+        mapa.put(jogador, mapa.getOrDefault(jogador, 0) + 1);
     }
 }
